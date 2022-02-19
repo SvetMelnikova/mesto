@@ -7,7 +7,7 @@
   background: url('../../../images/popup__close_icone.png');
   background-position: center;
   background-repeat: no-repeat;
-  font-size: 0; 
+  font-size: 0;
   border: none;
   cursor: pointer;
   transition: opacity .3s ease-in-out;
