@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="./pages/index.css">
+    <title>Mesto</title>
+  </head>
+
+  <body class="page">
+
+      <header class="header">
+        <img class="header__logo" src="./images/Logo_Mesto.png" alt="Logo_Mesto">
+      </header>
+
+      <main class="content">
+        <section class="profile">
+          <img src="./images/Ive_Kusto.jpg" alt="Жак-Ив Кусто" class="profile__avatar">
+          <div class="profile__info">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <p class="profile__job">Исследователь океана</p>
+            <button class="profile__edit" type="button">Редактировать</button>
+          </div>
+          <button class="profile__add-button" type="button"></button>
+        </section>
+
+        <section class="cards">
+          <ul class="photo-grid">
+            <li class="photo-grid__item">
+              <img class="photo-grid__pic" src="./images/Karachaevs.jpg" alt="Карачаевск">
+              <div class="photo-grid__item-description">
+                <h2 class="photo-grid__title">Карачаевск</h2>
+                <button class="photo-grid__like" type="button">Отметить лайком</button>
+              </div>
+            </li>
+
+            <li class="photo-grid__item">
+              <img class="photo-grid__pic" src="./images/Dombay.png"  alt="Домбай">
+              <div class="photo-grid__item-description">
+                <h2 class="photo-grid__title">Домбай</h2>
+                <button class="photo-grid__like" type="button">Отметить лайком</button>
+              </div>
+            </li>
+
+            <li class="photo-grid__item">
+              <img class="photo-grid__pic" src="./images/Gora_Elbrus.png" alt="Эльбрус">
+              <div class="photo-grid__item-description">
+                <h2 class="photo-grid__title">Эльбрус</h2>
+                <button class="photo-grid__like" type="button">Отметить лайком</button>
+              </div>
+            </li>
+
+            <li class="photo-grid__item">
+              <img class="photo-grid__pic" src="./images/photo-grid__Altay.png" alt="Алтай">
+              <div class="photo-grid__item-description">
+                <h2 class="photo-grid__title">Алтай</h2>
+                <button class="photo-grid__like" type="button">Отметить лайком</button>
+              </div>
+            </li>
+
+            <li class="photo-grid__item">
+              <img class="photo-grid__pic" src= "images/photo-grid__Chukotka.png" alt="Чукотка">
+              <div class="photo-grid__item-description">
+                <h2 class="photo-grid__title">Чукотка</h2>
+                <button class="photo-grid__like" type="button">Отметить лайком</button>
+              </div>
+            </li>
+
+            <li class="photo-grid__item">
+              <img class="photo-grid__pic" src= "images/photo-grid__Onejskoe_Ozero.png" alt="Онежское озеро">
+              <div class="photo-grid__item-description">
+                <h2 class="photo-grid__title">Онежское озеро</h2>
+                <button class="photo-grid__like" type="button">Отметить лайком</button>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
+      </footer>
+
+      <div class="popup popup__type_profile">
+        <div class="popup__container">
+          <button class="popup__close" type="button">Закрыть</button>
+          <form action="/" method="post" class="form form_type_profile" name="edit-profile">
+            <h2 class="form__title">Редактировать профиль</h2>
+            <div class="form__field">
+              <input type="text" value="Жак-Ив Кусто" placeholder="Ваше имя" class="form__input form__input_type_name" name="profile-name" id="profile-name" minlength="2" maxlength="40" required>
+              <span class="form__input-error profile-name-error"></span>
+            </div>
+            <div class="form-field">
+              <input type="text" value="Исследователь океана" placeholder="Чем занимаетесь?" class="form__input form__input_type_job" id="profile-job" minlength="2" maxlength="400" required>
+              <span class="form__input-error profile-job-error"></span>
+            </div>
+            <button type="submit" class="form__submit">Сохранить</button>
+          </form>
+        </div>
+      </div>
+
+    <script src="./scripts/index.js"></script>
+ </body>
+
+</html>
+  
