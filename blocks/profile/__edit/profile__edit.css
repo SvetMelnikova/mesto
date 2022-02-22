@@ -8,7 +8,7 @@
   grid-column-start: 2;
   grid-row-start: 1;
   align-self: center;
-  background: url('../../../images/VectorEdition.png');
+  background: url('../../../images/Vector_ProfileEdition.svg');
   background-color: #000;
   background-position: center;
   background-repeat: no-repeat;
@@ -18,4 +18,11 @@
 
 .profile__edit:hover {
   opacity: .8;
+}
+
+@media screen and (max-width: 320px) {
+  .profile__edit {
+    width: 18px;
+    height: 18px;
+  }
 }
