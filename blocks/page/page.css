@@ -1,9 +1,0 @@
-.page {
-  font-family: 'Inter', Arial, Helvetica, sans-serif;
-  background-color: #000;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-  text-size-adjust: 100%;
-  text-rendering: optimizeLegibility;
-}
