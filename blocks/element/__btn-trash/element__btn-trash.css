@@ -1,16 +1,19 @@
-.photo-grid__like {
+.element__btn-trash {
+  position: absolute;
+  background-image: url('../../../images/Vector_TrashBox.svg');
   transition: opacity .3s ease-in-out;
-  margin-right: 21px;
-  width: 26px;
+  top: 20px;
+  right: 20px;
+  width: 18px;
   height: 19px;
-  background: url('../../../images/Vector_Photo-grid_Like.svg');
   font-size: 0; /* Скрываем текст */
   border: none;
   cursor: pointer;
   background-position: center;
   background-repeat: no-repeat;
+  background-color: unset;
 }
 
-.photo-grid__like:hover {
+.element__btn-trash:hover {
   opacity: .8;
 }

@@ -29,64 +29,17 @@
           <button class="profile__add-button" type="button"></button>
         </section>
 
-        <section class="cards">
-          <ul class="photo-grid">
-            <li class="photo-grid__item">
-              <img class="photo-grid__pic" src="./images/Karachaevs.jpg" alt="Карачаевск">
-              <div class="photo-grid__item-description">
-                <h2 class="photo-grid__title">Карачаевск</h2>
-                <button class="photo-grid__like" type="button">Отметить лайком</button>
-              </div>
-            </li>
-
-            <li class="photo-grid__item">
-              <img class="photo-grid__pic" src="./images/Dombay.jpg"  alt="Домбай">
-              <div class="photo-grid__item-description">
-                <h2 class="photo-grid__title">Домбай</h2>
-                <button class="photo-grid__like" type="button">Отметить лайком</button>
-              </div>
-            </li>
-
-            <li class="photo-grid__item">
-              <img class="photo-grid__pic" src="./images/Gora_Elbrus.jpg" alt="Эльбрус">
-              <div class="photo-grid__item-description">
-                <h2 class="photo-grid__title">Эльбрус</h2>
-                <button class="photo-grid__like" type="button">Отметить лайком</button>
-              </div>
-            </li>
-
-            <li class="photo-grid__item">
-              <img class="photo-grid__pic" src="./images/Altay.jpg" alt="Алтай">
-              <div class="photo-grid__item-description">
-                <h2 class="photo-grid__title">Алтай</h2>
-                <button class="photo-grid__like" type="button">Отметить лайком</button>
-              </div>
-            </li>
-
-            <li class="photo-grid__item">
-              <img class="photo-grid__pic" src= "./images/Kamchatka.jpg" alt="Камчатка">
-              <div class="photo-grid__item-description">
-                <h2 class="photo-grid__title">Камчатский край</h2>
-                <button class="photo-grid__like" type="button">Отметить лайком</button>
-              </div>
-            </li>
-
-            <li class="photo-grid__item">
-              <img class="photo-grid__pic" src= "./images/Onejskoe_Ozero.jpg" alt="Онежское озеро">
-              <div class="photo-grid__item-description">
-                <h2 class="photo-grid__title">Онежское озеро</h2>
-                <button class="photo-grid__like" type="button">Отметить лайком</button>
-              </div>
-            </li>
-          </ul>
+        <section class="elements block-cards">
+          <ul class="elements__group"></ul>
         </section>
+
       </main>
 
       <footer class="footer">
         <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
       </footer>
 
-      <div class="popup">
+      <section class="popup popup_form_edit-profile">
         <div class="popup__container">
           <button class="popup__close" type="button">Закрыть</button>
           <form class="form form_type_profile" name="edit-profile">
@@ -102,7 +55,45 @@
             <button type="submit" class="form__submit">Сохранить</button>
           </form>
         </div>
-      </div>
+      </section>
+
+      <section class="popup popup_form_add-card">
+        <div class="popup__container">
+          <button class="popup__close" type="button">Закрыть</button>
+          
+          <form class="form form_type_profile" name="add-card">
+            <h2 class="form__title">Новое место</h2>
+            <div class="form__field">
+              <input type="text" value="" placeholder="Название" class="form__input form__input_type_title" name="name" id="place_name" minlength="2" maxlength="40" required>
+            </div>
+            <div class="form-field">
+              <input type="url" value="" placeholder="Ссылка на картинку" class="form__input form__input_type_link" id="link-image" minlength="2" maxlength="4000" required>
+            </div>
+            <button type="submit" class="form__submit">Создать</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="popup popup_view-image">
+        <div class="popup__content">
+          <img src="" alt="" class="popup__image">
+          <h3 class="popup__description"></h3>
+          <button class="form__close" type="button">
+            <img class="form__close-image" src="./images/popup__close_icone.svg" alt="закрыть окно">
+          </button>
+        </div>
+      </section>
+     
+      <template id="card-template">
+        <li class="element">
+          <img src="" alt="" class="element__image">
+          <div class="element__container">
+            <h2 class="element__title"></h2>
+            <button type="button" class="element__like-button"></button>
+          </div>
+          <button type="button" class="element__btn-trash"></button>
+        </li>
+      </template>
 
     <script src="./scripts/index.js"></script>
  </body>

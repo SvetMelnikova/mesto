@@ -1,7 +1,7 @@
 .profile__title {
   display: flex;
   flex-direction: row;
-  margin: 18px 0 0 30px;
+  margin: 18px 0 16px 30px;
   max-width: 500px;
   color: #fff;
 }

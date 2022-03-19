@@ -1,0 +1,33 @@
+.form__close {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  background: transparent;
+  border: none;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  cursor: pointer;  
+}
+
+.form__close:hover {
+    opacity: .6;
+}
+
+@media screen and (max-width: 576px) {
+  .form__close {
+      width: 25px;
+      height: 25px;
+      top: -35px;
+      right: -20px;
+  }  
+}
+
+@media screen and (max-width: 576px) {
+    .form__close {
+        width: 20px;
+        height: 20px;
+        top: -36px;
+        right: 0;
+    }  
+  }
