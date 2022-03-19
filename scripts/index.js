@@ -73,7 +73,7 @@ const popupSaveAddButtomElement =popupAddElement.querySelector('.form__submit');
 const cardList = document.querySelector(".elements__group");
 const cardAddForm = popupAddElement.querySelector(".form_type_profile");
 const zoomCardElement = document.querySelector(".popup_view-image");
-const closeZoomElemnt = zoomCardElement.querySelector(".form__close");
+const closeZoomElemnt = zoomCardElement.querySelector(".popup__close");
 
 const toggleAddPopupVisibility = function() {
   popupAddElement.classList.toggle('popup_opened');

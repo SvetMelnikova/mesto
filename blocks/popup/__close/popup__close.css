@@ -2,9 +2,9 @@
   position: absolute;
   top: -50px;
   right: -50px;
-  height: 40px;
-  width: 40px;
-  background: url('../../../images/popup__close_icone.svg');
+  height: 32px;
+  width: 32px;
+  background: transparent url('../../../images/popup__close_icone.svg');
   background-position: center;
   background-repeat: no-repeat;
   font-size: 0;
