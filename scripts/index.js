@@ -1,42 +1,27 @@
-const popupElement = document.querySelector('.popup');
-const popupCloseButtomElement = popupElement.querySelector('.popup__close');
-const popupOpenButtomElement = document.querySelector('.profile__edit');
-const popupSaveButtomElement =popupElement.querySelector('.form__submit');
+const popupProfile = document.querySelector(".popup_form_edit-profile");
+const popupProfileNameInput = popupProfile.querySelector(".form__input_type_name");
+const popupProfileJobInput = popupProfile.querySelector(".form__input_type_job")
+const profileUserName = document.querySelector(".profile__name");
+const profileUserJob = document.querySelector(".profile__job");
+const popupCloseButtomElement = popupProfile.querySelector(".popup__close");
+const profileForm = popupProfile.querySelector(".form_type_profile")
+const popupOpenButtomElement = document.querySelector(".profile__edit");
+const popupSaveButtomElement = popupProfile.querySelector('.form__submit');
 
-const togglePopupVisibility = function() {
-  popupElement.classList.toggle('popup_opened');
+const popupAddElement = document.querySelector(".popup_form_add-card");
+const popupOpenAddButtomElement = document.querySelector(".profile__add-button");
+const popupCloseAddButtomElement = popupAddElement.querySelector(".popup__close");
+const popupSaveAddButtomElement =popupAddElement.querySelector(".form__submit");
 
-}
+const cardList = document.querySelector(".elements__group");
 
-popupOpenButtomElement.addEventListener('click', togglePopupVisibility);
-popupCloseButtomElement.addEventListener('click', togglePopupVisibility);
+const cardAddForm = popupAddElement.querySelector(".form_type_profile");
+const zoomCardElement = document.querySelector(".popup_view-image");
+const closeZoomElement = zoomCardElement.querySelector(".popup__close");
 
-// Изменение формы
-let formElement = document.querySelector('.form');
-let nameInput = formElement.querySelector('.form__input_type_name');
-let jobInput = formElement.querySelector('.form__input_type_job');
-
-
-function formSubmitHandler (evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-
-  // Получаем значение полей jobInput и nameInput из свойства value
-  let name = nameInput.value;
-  let job = jobInput.value;
-
-  // Выбераем элементы, куда должны быть вставлены значения полей
-  let avtor = document.querySelector('.profile__name');
-  let newJob = document.querySelector('.profile__job');
-
-  // Вставляем новые значения с помощью textContent
-  avtor.textContent = name;
-  newJob.textContent = job;
-}
-
-formElement.addEventListener('submit', formSubmitHandler);
-popupSaveButtomElement.addEventListener('click', togglePopupVisibility); //Попап закрывается при клике на "Сохранить"
-
-// Загрузка карточек на страницу
+const cardElement = document.querySelector("#card-template");
+const newAddText = document.querySelector(".form__input_type_title");
+const newAddUrl = document.querySelector(".form__input_type_link");
 
 const initialCards = [
   {
@@ -65,62 +50,55 @@ const initialCards = [
   }
 ];
 
+// Открытие popup-окон
+function openModalWindow(popupProfile) {
+  popupProfile.classList.add("popup_opened")
+} 
+// Закрытие popup-окон
+function closeModalWindow(popupProfile) {
+  popupProfile.classList.remove("popup_opened")
+} 
 
-const popupAddElement = document.querySelector(".popup_form_add-card");
-const popupCloseAddButtomElement = popupAddElement.querySelector('.popup__close');
-const popupOpenAddButtomElement = document.querySelector('.profile__add-button');
-const popupSaveAddButtomElement =popupAddElement.querySelector('.form__submit');
-const cardList = document.querySelector(".elements__group");
-const cardAddForm = popupAddElement.querySelector(".form_type_profile");
-const zoomCardElement = document.querySelector(".popup_view-image");
-const closeZoomElemnt = zoomCardElement.querySelector(".popup__close");
+popupOpenButtomElement.addEventListener("click", function(){
+  popupProfileNameInput.value = profileUserName.textContent;
+  popupProfileJobInput.value = profileUserJob.textContent;
 
-const toggleAddPopupVisibility = function() {
-  popupAddElement.classList.toggle('popup_opened');
+  openModalWindow(popupProfile);
+});
 
+// Изменение формы профайла
+
+function formSubmitHandler (event) {
+  event.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+
+  profileUserName.textContent = popupProfileNameInput.value;
+  profileUserJob.textContent = popupProfileJobInput.value;
+
+  closeModalWindow(popupProfile)
+  profileForm.reset();
 }
 
-popupOpenAddButtomElement.addEventListener('click', toggleAddPopupVisibility);
-popupCloseAddButtomElement.addEventListener('click', toggleAddPopupVisibility);
+// Создание карточки
+function createCard(cardLink, cardName) {
+  const card = cardElement.content.firstElementChild.cloneNode(true);
 
+  card.querySelector(".element__title").textContent = cardName;
+  card.querySelector(".element__image").src  = cardLink;
 
-cardAddForm.addEventListener("submit", addCard);
-popupSaveAddButtomElement.addEventListener('click', toggleAddPopupVisibility);
+  removeCardAction(card);
+  setLikeButtonListener(card);
+  zoomCardAction(card);
 
-function renderCardList(links) {
-  const cards = document.querySelector("#card-template").content
-  .firstElementChild.cloneNode(true);
-
-  cards.querySelector(".element__title").textContent = links.name;
-  cards.querySelector(".element__image").src  = links.link;
-
-  setCardAction(cards);
-  likeAction(cards);
-  zoomCardAction(cards);
-
-  cardList.prepend(cards);
-
+  return card
 }
 
-function addCard(event) {
-  event.preventDefault();
-
-  const newAddText = event.currentTarget.querySelector(".form__input_type_title").value;
-  const newAddUrl = event.currentTarget.querySelector(".form__input_type_link").value;
-
-  let newCard = {name: newAddText, link: newAddUrl};
-
-  renderCardList(newCard);
-  
-  event.currentTarget.reset();
-}
-
+// Удаление карточки
 function removeCard(event) {
   const card = event.currentTarget.closest(".element");
   card.remove();
 }
 
-function setCardAction(card) {
+function removeCardAction(card) {
   card.querySelector(".element__btn-trash").addEventListener("click", removeCard);
 }
 // лайки карточек
@@ -131,31 +109,49 @@ function likeCard (event) {
 
 }
 
-function likeAction(card) {
-  card.querySelector(".element__like-button").addEventListener('click', likeCard);
+function setLikeButtonListener(card) {
+  card.querySelector(".element__like-button").addEventListener("click", likeCard);
 }
 
+// Увеличение картинки
 function zoomCard(event){
   const card = event.currentTarget.closest(".element");
-  let image = card.querySelector(".element__image").src;
-  let title = card.querySelector(".element__title").textContent;
-  let zoomimage = document.querySelector(".popup__image");
-  let zoomtitle = document.querySelector(".popup__description");
-  zoomtitle.textContent = title;
-  zoomimage.src = image;
-  zoomCardElement.classList.add('popup_opened');
-
+  const image = card.querySelector(".element__image").src;
+  const title = card.querySelector(".element__title").textContent;
+  const zoomImage = document.querySelector(".popup__image");
+  const zoomTitle = document.querySelector(".popup__description");
+  zoomTitle.textContent = title;
+  zoomImage.src = image;
+  openModalWindow(zoomCardElement);
 }
 
 function zoomCardAction(card) {
-  card.querySelector(".element__image").addEventListener('click', zoomCard);
+  card.querySelector(".element__image").addEventListener("click", zoomCard);
 }
 
-const closeZoomCard = function(){
-  zoomCardElement.classList.remove('popup_opened');
+function renderCardList(initialCards){
+  initialCards.forEach((item) => {
+    cardList.append(createCard(item.link, item.name)); 
+  })
 }
 
-closeZoomElemnt.addEventListener('click', closeZoomCard);
+function addCard(event) {
+  event.preventDefault();
 
+  cardList.prepend(createCard(newAddUrl.value, newAddText.value));
+  cardAddForm.reset();
+}
 
-initialCards.map(renderCardList);
+cardAddForm.addEventListener("submit", addCard);
+
+// Открытие(закрытие) popup-окна для добавления карточки
+popupOpenAddButtomElement.addEventListener("click", () => openModalWindow(popupAddElement));
+popupCloseAddButtomElement.addEventListener("click", () => closeModalWindow(popupAddElement));
+popupCloseButtomElement.addEventListener("click", () => closeModalWindow(popupProfile));
+popupSaveAddButtomElement.addEventListener("click", () => closeModalWindow(popupAddElement));
+closeZoomElement.addEventListener("click", () => closeModalWindow(zoomCardElement));
+
+popupProfile.addEventListener("submit", formSubmitHandler);
+
+// Отрисовка карточек на странице из массива
+renderCardList(initialCards);
