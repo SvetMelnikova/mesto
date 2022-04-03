@@ -42,14 +42,14 @@
       <section class="popup popup_form_edit-profile">
         <div class="popup__container">
           <button class="popup__close" type="button">Закрыть</button>
-          <form class="form form_type_profile" name="edit-profile">
+          <form class="form form_type_profile" name="edit-profile" novalidate>
             <h2 class="form__title">Редактировать профиль</h2>
             <div class="form__field">
               <input type="text" value="Жак-Ив Кусто" placeholder="Ваше имя" class="form__input form__input_type_name" name="profile-name" id="profile-name" minlength="2" maxlength="40" required>
               <span class="form__input-error profile-name-error"></span>
             </div>
             <div class="form-field">
-              <input type="text" value="Исследователь океана" placeholder="Чем занимаетесь?" class="form__input form__input_type_job" id="profile-job" minlength="2" maxlength="400" required>
+              <input type="text" value="Исследователь океана" placeholder="Чем занимаетесь?" class="form__input form__input_type_job" id="profile-job" minlength="2" maxlength="200" required>
               <span class="form__input-error profile-job-error"></span>
             </div>
             <button type="submit" class="form__submit">Сохранить</button>
@@ -61,13 +61,15 @@
         <div class="popup__container">
           <button class="popup__close" type="button">Закрыть</button>
           
-          <form class="form form_type_profile" name="add-card">
+          <form class="form form_type_profile" name="add-card" novalidate>
             <h2 class="form__title">Новое место</h2>
             <div class="form__field">
-              <input type="text" value="" placeholder="Название" class="form__input form__input_type_title" name="name" id="place_name" minlength="2" maxlength="40" required>
+              <input type="text" value="" placeholder="Название" class="form__input form__input_type_title" name="name" id="place_name" minlength="2" maxlength="30" required>
+              <span class="form__input-error place_name-error"></span>
             </div>
             <div class="form-field">
-              <input type="url" value="" placeholder="Ссылка на картинку" class="form__input form__input_type_link" id="link-image" minlength="2" maxlength="4000" required>
+              <input type="url" value="" placeholder="Ссылка на картинку" class="form__input form__input_type_link" id="link-image" required>
+              <span class="form__input-error link-image-error"></span>
             </div>
             <button type="submit" class="form__submit">Создать</button>
           </form>
@@ -96,6 +98,7 @@
       </template>
 
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
  </body>
 
 </html>

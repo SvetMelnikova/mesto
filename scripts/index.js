@@ -53,6 +53,7 @@ const initialCards = [
 // Открытие popup-окон
 function openModalWindow(popupProfile) {
   popupProfile.classList.add("popup_opened")
+  document.addEventListener('keydown', handleEscUp);
 } 
 // Закрытие popup-окон
 function closeModalWindow(popupProfile) {
@@ -152,6 +153,34 @@ popupSaveAddButtomElement.addEventListener("click", () => closeModalWindow(popup
 closeZoomElement.addEventListener("click", () => closeModalWindow(zoomCardElement));
 
 popupProfile.addEventListener("submit", formSubmitHandler);
+
+popupAddElement.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
+      // закрываем только тогда, когда надо, т.е. только при том клике, которые происходит по нужному элементу
+    closeModalWindow(popupAddElement);
+  }
+});
+popupProfile.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
+      // закрываем только тогда, когда надо, т.е. только при том клике, которые происходит по нужному элементу
+    closeModalWindow(popupProfile);
+  }
+});
+
+const closePopupWindow = (modalWindow) => {
+  document.removeEventListener('keydown', handleEscUp);   // удаляем событие keydown
+  modalWindow.classList.remove('popup_opened');   // скрываем попап
+};
+// И дальше внутри коллбэка у нас есть объект event и мы можем узнать в каком месте произошел клик:
+const handleEscUp = (event) => {
+  event.preventDefault();
+  const activePopup = document.querySelector('.popup_opened');
+  if (event.key === "Escape") {
+    closePopupWindow(activePopup);
+  }else{
+    document.removeEventListener('keydown', handleEscUp);  
+  }
+};
 
 // Отрисовка карточек на странице из массива
 renderCardList(initialCards);

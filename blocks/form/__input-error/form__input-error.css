@@ -2,7 +2,7 @@
   font-size: 12px;
   color: red;
   opacity: 0;
-  position: absolute;
+  position: relative;
   top: calc(100% + 4px);
   left: 0;
   transition: .3s;
