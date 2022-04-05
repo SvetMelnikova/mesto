@@ -141,6 +141,7 @@ function addCard(event) {
 
   cardList.prepend(createCard(newAddUrl.value, newAddText.value));
   cardAddForm.reset();
+  popupSaveAddButtomElement.classList.add('form__submit_disabled');
 }
 
 cardAddForm.addEventListener("submit", addCard);
@@ -167,15 +168,21 @@ popupProfile.addEventListener('click', (evt) => {
   }
 });
 
+zoomCardElement.addEventListener('click', (evt) => {
+  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
+      // закрываем только тогда, когда надо, т.е. только при том клике, которые происходит по нужному элементу
+    closeModalWindow(zoomCardElement);
+  }
+});
+
 const closePopupWindow = (modalWindow) => {
   document.removeEventListener('keydown', handleEscUp);   // удаляем событие keydown
   modalWindow.classList.remove('popup_opened');   // скрываем попап
 };
 // И дальше внутри коллбэка у нас есть объект event и мы можем узнать в каком месте произошел клик:
 const handleEscUp = (event) => {
-  event.preventDefault();
   const activePopup = document.querySelector('.popup_opened');
-  if (event.key === "Escape") {
+  if (event.key == "Escape") {
     closePopupWindow(activePopup);
   }else{
     document.removeEventListener('keydown', handleEscUp);  
