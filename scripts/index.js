@@ -14,10 +14,11 @@ const popupCloseAddButtomElement = popupAddElement.querySelector(".popup__close"
 const popupSaveAddButtomElement =popupAddElement.querySelector(".form__submit");
 
 const cardList = document.querySelector(".elements__group");
-
 const cardAddForm = popupAddElement.querySelector(".form_type_profile");
 const zoomCardElement = document.querySelector(".popup_view-image");
 const closeZoomElement = zoomCardElement.querySelector(".popup__close");
+const zoomImage = document.querySelector(".popup__image");
+const zoomTitle = document.querySelector(".popup__description");
 
 const cardElement = document.querySelector("#card-template");
 const newAddText = document.querySelector(".form__input_type_title");
@@ -51,14 +52,10 @@ const initialCards = [
 ];
 
 // Открытие popup-окон
-function openModalWindow(popupProfile) {
-  popupProfile.classList.add("popup_opened")
+function openModalWindow(popup) {
+  popup.classList.add("popup_opened")
   document.addEventListener('keydown', handleEscUp);
-} 
-// Закрытие popup-окон
-function closeModalWindow(popupProfile) {
-  popupProfile.classList.remove("popup_opened")
-} 
+}
 
 popupOpenButtomElement.addEventListener("click", function(){
   popupProfileNameInput.value = profileUserName.textContent;
@@ -69,22 +66,22 @@ popupOpenButtomElement.addEventListener("click", function(){
 
 // Изменение формы профайла
 
-function formSubmitHandler (event) {
+function handleProfileFormSubmit (event) {
   event.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
   profileUserName.textContent = popupProfileNameInput.value;
   profileUserJob.textContent = popupProfileJobInput.value;
 
-  closeModalWindow(popupProfile)
-  profileForm.reset();
+  closePopupWindow(popupProfile);
 }
 
 // Создание карточки
 function createCard(cardLink, cardName) {
   const card = cardElement.content.firstElementChild.cloneNode(true);
-
+  const cardImage = card.querySelector(".element__image");
   card.querySelector(".element__title").textContent = cardName;
-  card.querySelector(".element__image").src  = cardLink;
+  cardImage.alt = cardName;
+  cardImage.src  = cardLink;
 
   removeCardAction(card);
   setLikeButtonListener(card);
@@ -105,7 +102,7 @@ function removeCardAction(card) {
 // лайки карточек
 
 function likeCard (event) {
-  const card = event.currentTarget.closest(".element__like-button");
+  const card = event.currentTarget;
   card.classList.toggle("element__like-button_active");
 
 }
@@ -117,12 +114,11 @@ function setLikeButtonListener(card) {
 // Увеличение картинки
 function zoomCard(event){
   const card = event.currentTarget.closest(".element");
-  const image = card.querySelector(".element__image").src;
+  const image = event.currentTarget.src;
   const title = card.querySelector(".element__title").textContent;
-  const zoomImage = document.querySelector(".popup__image");
-  const zoomTitle = document.querySelector(".popup__description");
   zoomTitle.textContent = title;
   zoomImage.src = image;
+  zoomImage.alt = title;
   openModalWindow(zoomCardElement);
 }
 
@@ -141,37 +137,38 @@ function addCard(event) {
 
   cardList.prepend(createCard(newAddUrl.value, newAddText.value));
   cardAddForm.reset();
-  popupSaveAddButtomElement.classList.add('form__submit_disabled');
+  popupSaveAddButtomElement.classList.add('form__submit_disabled'); 
+  popupSaveAddButtomElement.disabled = true;
 }
 
 cardAddForm.addEventListener("submit", addCard);
 
 // Открытие(закрытие) popup-окна для добавления карточки
 popupOpenAddButtomElement.addEventListener("click", () => openModalWindow(popupAddElement));
-popupCloseAddButtomElement.addEventListener("click", () => closeModalWindow(popupAddElement));
-popupCloseButtomElement.addEventListener("click", () => closeModalWindow(popupProfile));
-popupSaveAddButtomElement.addEventListener("click", () => closeModalWindow(popupAddElement));
-closeZoomElement.addEventListener("click", () => closeModalWindow(zoomCardElement));
+popupCloseAddButtomElement.addEventListener("click", () => closePopupWindow(popupAddElement));
+popupCloseButtomElement.addEventListener("click", () => closePopupWindow(popupProfile));
+popupSaveAddButtomElement.addEventListener("click", () => closePopupWindow(popupAddElement));
+closeZoomElement.addEventListener("click", () => closePopupWindow(zoomCardElement));
 
-popupProfile.addEventListener("submit", formSubmitHandler);
+popupProfile.addEventListener("submit", handleProfileFormSubmit);
 
 popupAddElement.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
       // закрываем только тогда, когда надо, т.е. только при том клике, которые происходит по нужному элементу
-    closeModalWindow(popupAddElement);
+      closePopupWindow(popupAddElement);
   }
 });
 popupProfile.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
       // закрываем только тогда, когда надо, т.е. только при том клике, которые происходит по нужному элементу
-    closeModalWindow(popupProfile);
+      closePopupWindow(popupProfile);
   }
 });
 
 zoomCardElement.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close')) {
       // закрываем только тогда, когда надо, т.е. только при том клике, которые происходит по нужному элементу
-    closeModalWindow(zoomCardElement);
+      closePopupWindow(zoomCardElement);
   }
 });
 
@@ -181,12 +178,10 @@ const closePopupWindow = (modalWindow) => {
 };
 // И дальше внутри коллбэка у нас есть объект event и мы можем узнать в каком месте произошел клик:
 const handleEscUp = (event) => {
-  const activePopup = document.querySelector('.popup_opened');
   if (event.key == "Escape") {
+    const activePopup = document.querySelector('.popup_opened');
     closePopupWindow(activePopup);
-  }else{
-    document.removeEventListener('keydown', handleEscUp);  
-  }
+  };
 };
 
 // Отрисовка карточек на странице из массива
