@@ -1,10 +1,10 @@
 import { openModalWindow, zoomImage,  zoomTitle, zoomCardElement} from "./index.js";
 
 export class Card {
-    constructor(data, template){
+    constructor(data){
     this._name = data.name;
     this._link = data.link;
-    this._template = template;
+    this._template = document.querySelector("#card-template");
     }
     
     _getTemplate() {
@@ -17,8 +17,8 @@ export class Card {
       card.remove();
     }
     
-    _removeCardAction(card) {
-      card.querySelector(".element__btn-trash").addEventListener("click", this._removeCard);
+    _handleRemoveCard() {
+      this._card.querySelector(".element__btn-trash").addEventListener("click", this._removeCard);
     }
     
     _likeCard (event) {
@@ -26,8 +26,8 @@ export class Card {
       card.classList.toggle("element__like-button_active");
     }
     
-    _setLikeButtonListener(card) {
-      card.querySelector(".element__like-button").addEventListener("click", this._likeCard);
+    _setLikeButtonListener() {
+      this._card.querySelector(".element__like-button").addEventListener("click", this._likeCard);
     }
     
     _zoomCard(event){
@@ -40,8 +40,14 @@ export class Card {
       openModalWindow(zoomCardElement);
     }
     
-    _zoomCardAction(card) {
-      card.querySelector(".element__image").addEventListener("click", this._zoomCard);
+    _zoomCardAction() {
+      this._card.querySelector(".element__image").addEventListener("click", this._zoomCard);
+    }
+
+    _setEventListeners(){
+      this._handleRemoveCard();
+      this._setLikeButtonListener();
+      this._zoomCardAction();
     }
 
     createCard() {
@@ -51,9 +57,7 @@ export class Card {
       cardImage.alt = this._name;
       cardImage.src  = this._link;
     
-      this._removeCardAction(this._card);
-      this._setLikeButtonListener(this._card);
-      this._zoomCardAction(this._card);
+      this._setEventListeners();
     
       return this._card;
     }

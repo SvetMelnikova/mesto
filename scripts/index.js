@@ -6,18 +6,14 @@ const popupProfileNameInput = popupProfile.querySelector(".form__input_type_name
 const popupProfileJobInput = popupProfile.querySelector(".form__input_type_job")
 const profileUserName = document.querySelector(".profile__name");
 const profileUserJob = document.querySelector(".profile__job");
-const popupCloseButtomElement = popupProfile.querySelector(".popup__close");
 const popupOpenButtomElement = document.querySelector(".profile__edit");
 
 const popupAddElement = document.querySelector(".popup_form_add-card");
 const popupOpenAddButtomElement = document.querySelector(".profile__add-button");
-const popupCloseAddButtomElement = popupAddElement.querySelector(".popup__close");
-const popupSaveAddButtomElement =popupAddElement.querySelector(".form__submit");
 
 const cardList = document.querySelector(".elements__group");
 const cardAddForm = popupAddElement.querySelector(".form_type_profile");
 export const zoomCardElement = document.querySelector(".popup_view-image");
-const closeZoomElement = zoomCardElement.querySelector(".popup__close");
 export const zoomImage = document.querySelector(".popup__image");
 export const zoomTitle = document.querySelector(".popup__description");
 
@@ -85,10 +81,14 @@ function handleProfileFormSubmit (event) {
   closePopupWindow(popupProfile);
 }
 
+function createCard(item) {
+  const cardElement = new Card(item);
+  return cardElement;
+}
+
 function renderCardList(initialCards){
   initialCards.forEach((item) => {
-    const card = new Card(item, cardElement);
-    const cardCreate = card.createCard();
+    const cardCreate = createCard(item).createCard();
     cardList.append(cardCreate); 
   })
 }
@@ -99,22 +99,18 @@ function addCard(event) {
     "name": newAddText.value,
     "link": newAddUrl.value
   }
-  const card = new Card(newCard, cardElement);
-  const cardCreate = card.createCard();
+  const cardCreate = createCard(newCard).createCard();
   cardList.prepend(cardCreate);
   cardAddForm.reset();
-  popupSaveAddButtomElement.classList.add('form__submit_disabled'); 
-  popupSaveAddButtomElement.disabled = true;
+  closePopupWindow(popupAddElement);
+  const formSubmitDisabled = new FormValidator(settings);
+  formSubmitDisabled.enableValidation();
 }
 
 cardAddForm.addEventListener("submit", addCard);
 
-// Открытие(закрытие) popup-окна для добавления карточки
+// Открытие popup-окна для добавления карточки
 popupOpenAddButtomElement.addEventListener("click", () => openModalWindow(popupAddElement));
-popupCloseAddButtomElement.addEventListener("click", () => closePopupWindow(popupAddElement));
-popupCloseButtomElement.addEventListener("click", () => closePopupWindow(popupProfile));
-popupSaveAddButtomElement.addEventListener("click", () => closePopupWindow(popupAddElement));
-closeZoomElement.addEventListener("click", () => closePopupWindow(zoomCardElement));
 
 popupProfile.addEventListener("submit", handleProfileFormSubmit);
 
