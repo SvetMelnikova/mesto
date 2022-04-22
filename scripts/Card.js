@@ -1,10 +1,10 @@
 import { openModalWindow, zoomImage,  zoomTitle, zoomCardElement} from "./index.js";
 
 export class Card {
-    constructor(data){
+    constructor(data, template){
     this._name = data.name;
     this._link = data.link;
-    this._template = document.querySelector("#card-template");
+    this._template = template;
     }
     
     _getTemplate() {

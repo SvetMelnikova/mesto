@@ -17,7 +17,7 @@ export const zoomCardElement = document.querySelector(".popup_view-image");
 export const zoomImage = document.querySelector(".popup__image");
 export const zoomTitle = document.querySelector(".popup__description");
 
-const cardElement = document.querySelector("#card-template");
+const cardTemplate = document.querySelector("#card-template");
 const newAddText = document.querySelector(".form__input_type_title");
 const newAddUrl = document.querySelector(".form__input_type_link");
 
@@ -81,14 +81,14 @@ function handleProfileFormSubmit (event) {
   closePopupWindow(popupProfile);
 }
 
-function createCard(item) {
-  const cardElement = new Card(item);
+function createCard(item, cardTemplate) {
+  const cardElement = new Card(item, cardTemplate);
   return cardElement;
 }
 
 function renderCardList(initialCards){
   initialCards.forEach((item) => {
-    const cardCreate = createCard(item).createCard();
+    const cardCreate = createCard(item, cardTemplate).createCard();
     cardList.append(cardCreate); 
   })
 }
@@ -99,12 +99,11 @@ function addCard(event) {
     "name": newAddText.value,
     "link": newAddUrl.value
   }
-  const cardCreate = createCard(newCard).createCard();
+  const cardCreate = createCard(newCard, cardTemplate).createCard();
   cardList.prepend(cardCreate);
   cardAddForm.reset();
   closePopupWindow(popupAddElement);
-  const formSubmitDisabled = new FormValidator(settings);
-  formSubmitDisabled.enableValidation();
+  addCardFormValidator.enableValidation();
 }
 
 cardAddForm.addEventListener("submit", addCard);
@@ -150,5 +149,8 @@ const handleEscUp = (event) => {
 renderCardList(initialCards);
 
   // Валидация форм
-  const validationForm = new FormValidator(settings)
-  validationForm.enableValidation(); 
+const profileFormValidator = new FormValidator(settings, popupProfile);
+const addCardFormValidator = new FormValidator(settings, popupAddElement);
+
+profileFormValidator.enableValidation();
+addCardFormValidator.enableValidation();
