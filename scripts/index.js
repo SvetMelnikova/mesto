@@ -103,7 +103,7 @@ function addCard(event) {
   cardList.prepend(cardCreate);
   cardAddForm.reset();
   closePopupWindow(popupAddElement);
-  addCardFormValidator.enableValidation();
+  addCardFormValidator.setDisabledOnSubmitButton();
 }
 
 cardAddForm.addEventListener("submit", addCard);

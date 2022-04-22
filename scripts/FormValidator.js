@@ -95,4 +95,8 @@ _toggleButtonState () {
       this._buttonElement.disabled = false;
     }
   }
+  setDisabledOnSubmitButton() {
+    this._buttonElement.classList.add(this._inactiveButtonClass);
+    this._buttonElement.disabled = true;
+  }
 }
