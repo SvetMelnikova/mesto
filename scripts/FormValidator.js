@@ -87,15 +87,14 @@ _toggleButtonState () {
     // Если есть хотя бы один невалидный инпут
     if (this._hasInvalidInput(this._inputList)) {
       // сделай кнопку неактивной
-      this._buttonElement.classList.add(this._inactiveButtonClass);
-      this._buttonElement.disabled = true;
+      this.disableButton();
     } else {
       // иначе сделай кнопку активной
       this._buttonElement.classList.remove(this._inactiveButtonClass);
       this._buttonElement.disabled = false;
     }
   }
-  setDisabledOnSubmitButton() {
+  disableButton() {
     this._buttonElement.classList.add(this._inactiveButtonClass);
     this._buttonElement.disabled = true;
   }
